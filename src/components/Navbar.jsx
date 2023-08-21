@@ -25,11 +25,13 @@ const pages = [
 	"Tasks",
 	"Notes",
 	"Projects",
+	"Areas",
 	"Goals",
 ];
 const settings = ["Profile", "Logout"];
 function Navbar() {
 	const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
+
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -61,8 +63,8 @@ function Navbar() {
 						<Typography
 							variant="h6"
 							noWrap
-							// component={NavLink}
-							// to="/"
+							component={NavLink}
+							to="/"
 							sx={{
 								mr: 2,
 								display: { xs: "none", md: "flex" },
@@ -78,7 +80,9 @@ function Navbar() {
             Paginas en breakpoint md 
             ------------------------
             */}
-						<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+						<Box
+							sx={{ flexGrow: 1, gap: 1, display: { xs: "none", md: "flex" } }}
+						>
 							{pages.map((page) => (
 								<NavLink
 									to={"/" + page.toLowerCase()}
@@ -88,6 +92,7 @@ function Navbar() {
 									{({ isActive }) => (
 										<Button
 											onClick={handleCloseNavMenu}
+											color="inherit"
 											sx={
 												{ my: 2, color: "white", display: "block" }
 												// ,

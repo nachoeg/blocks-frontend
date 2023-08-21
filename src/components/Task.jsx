@@ -1,41 +1,37 @@
-import { Folder } from "@mui/icons-material";
+import { ErrorOutline, Folder } from "@mui/icons-material";
 import {
 	Box,
 	Button,
 	Card,
 	CardContent,
 	Checkbox,
-	CircularProgress,
 	Typography,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import Block from "./Block";
 
 function Task({ data }) {
-	let prioridadValor = 0;
-	let prioridadColor = "inherit";
-	if (data.priority == "Alta") {
-		prioridadValor = 80;
-		prioridadColor = "error";
-	} else if (data.priority == "Media") {
-		prioridadValor = 55;
-		prioridadColor = "warning";
-	} else if (data.priority == "Baja") {
-		prioridadValor = 30;
-		prioridadColor = "success";
-	}
+	const handleOpen = () => {
+		console.log("abrir tarea");
+	};
+	const handleCheck = (e) => {
+		e.stopPropagation();
+		console.log("check");
+	};
 	return (
-		<Card sx={{ minWidth: 275, maxWidth: 300 }}>
+		<Block onClick={handleOpen}>
 			<CardContent>
 				<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 					<Typography variant="h5" sx={{}}>
 						{data.name}
 					</Typography>
-					<CircularProgress
-						variant="determinate"
-						size={25}
-						value={prioridadValor}
-						color={prioridadColor}
-					/>
+					{data.priority == "Alta" ? (
+						<ErrorOutline color="error" />
+					) : data.priority == "Media" ? (
+						<ErrorOutline color="warning" />
+					) : (
+						data.priority == "Baja" && <ErrorOutline color="disabled" />
+					)}
 				</Box>
 
 				<Button
@@ -52,13 +48,13 @@ function Task({ data }) {
 				{data.subtasks.map((st) => {
 					return (
 						<div key={st.id}>
-							<Checkbox checked={st.complete} />
+							<Checkbox onClick={handleCheck} checked={st.complete} />
 							{st.name}
 						</div>
 					);
 				})}
 			</CardContent>
-		</Card>
+		</Block>
 	);
 }
 

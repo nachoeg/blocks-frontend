@@ -2,7 +2,21 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Navbar from "./components/Navbar";
-import TasksPage from "./pages/TasksPage";
+import TasksMainPage from "./pages/TasksMainPage";
+import NotesMainPage from "./pages/NotesMainPage";
+import ProjectsMainPage from "./pages/ProjectsMainPage";
+import HomePage from "./pages/HomePage";
+import AreasMainPage from "./pages/AreasMainPage";
+import GoalsMainPage from "./pages/GoalsMainPage";
+import HabitsPage from "./pages/HabitsPage";
+import TimetablePage from "./pages/TimetablePage";
+import CalendarPage from "./pages/CalendarPage";
+import ProjectPage from "./pages/ProjectPage";
+import "./css/App.css";
+import AreaPage from "./pages/AreaPage";
+import TaskPage from "./pages/TaskPage";
+import GoalPage from "./pages/GoalPage";
+import NotePage from "./pages/NotePage";
 
 function App() {
 	const theme = createTheme({
@@ -38,13 +52,20 @@ function App() {
 				<CssBaseline />
 				<Routes>
 					<Route path="/" element={<Navbar />}>
-						<Route path="calendar" element={<></>} />
-						<Route path="timetable" element={<></>} />
-						<Route path="habits" element={<></>} />
-						<Route path="tasks" element={<TasksPage />} />
-						<Route path="notes" element={<></>} />
-						<Route path="projects" element={<></>} />
-						<Route path="goals" element={<></>} />
+						<Route index element={<HomePage />} />
+						<Route path="calendar" element={<CalendarPage />} />
+						<Route path="timetable" element={<TimetablePage />} />
+						<Route path="habits" element={<HabitsPage />} />
+						<Route path="tasks" element={<TasksMainPage />} />
+						<Route path="notes" element={<NotesMainPage />} />
+						<Route path="projects" element={<ProjectsMainPage />} />
+						<Route path="areas" element={<AreasMainPage />} />
+						<Route path="projects/:nombre" element={<ProjectPage />} />
+						<Route path="areas/:nombre" element={<AreaPage />} />
+						<Route path="tasks/:nombre" element={<TaskPage />} />
+						<Route path="notes/:nombre" element={<NotePage />} />
+						<Route path="goals/:nombre" element={<GoalPage />} />
+						<Route path="goals" element={<GoalsMainPage />} />
 					</Route>
 				</Routes>
 			</ThemeProvider>

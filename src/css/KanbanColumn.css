@@ -1,0 +1,7 @@
+.newButton {
+	opacity: 0;
+}
+
+.kanbanColumn:hover .newButton {
+	opacity: inherit;
+}
