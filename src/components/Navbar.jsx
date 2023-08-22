@@ -15,18 +15,33 @@ import {
 import { NavLink, Outlet } from "react-router-dom";
 import * as React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AutoAwesomeMotion as Logo } from "@mui/icons-material";
+import {
+	CalendarMonth,
+	Folder,
+	AutoAwesomeMotion as Logo,
+} from "@mui/icons-material";
 import ThemeSwitcher from "./ThemeSwitcher";
+import {
+	BullseyeArrow,
+	ChartBox,
+	CheckboxMarked,
+	CheckboxMultipleBlankCircle,
+	Note,
+	Timetable,
+} from "mdi-material-ui";
 
 const pages = [
-	"Calendar",
-	"Timetable",
-	"Habits",
-	"Tasks",
-	"Notes",
-	"Projects",
-	"Areas",
-	"Goals",
+	{ name: "Calendar", icon: <CalendarMonth></CalendarMonth> },
+	{ name: "Timetable", icon: <Timetable></Timetable> },
+	{ name: "Habits", icon: <ChartBox></ChartBox> },
+	{ name: "Tasks", icon: <CheckboxMarked></CheckboxMarked> },
+	{ name: "Notes", icon: <Note></Note> },
+	{ name: "Projects", icon: <Folder></Folder> },
+	{
+		name: "Areas",
+		icon: <CheckboxMultipleBlankCircle></CheckboxMultipleBlankCircle>,
+	},
+	{ name: "Goals", icon: <BullseyeArrow /> },
 ];
 const settings = ["Profile", "Logout"];
 function Navbar() {
@@ -54,60 +69,78 @@ function Navbar() {
 			<AppBar elevation={0} position="fixed">
 				<Container maxWidth="xl">
 					<Toolbar disableGutters>
-						<Logo sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}></Logo>
 						{/* 
             ----------------------
             Logo en breakpoint md 
             ----------------------
             */}
-						<Typography
-							variant="h6"
-							noWrap
+						<Box
 							component={NavLink}
 							to="/"
 							sx={{
-								mr: 2,
 								display: { xs: "none", md: "flex" },
-								fontWeight: 700,
-								color: "inherit",
 								textDecoration: "none",
+								color: "inherit",
+								alignItems: "center",
 							}}
 						>
-							Blocks
-						</Typography>
+							<Logo sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}></Logo>
+
+							<Typography
+								variant="h6"
+								noWrap
+								sx={{
+									mr: 2,
+									fontWeight: 700,
+									color: "inherit",
+									textDecoration: "none",
+								}}
+							>
+								Blocks
+							</Typography>
+						</Box>
+
 						{/* 
             ------------------------
             Paginas en breakpoint md 
             ------------------------
             */}
 						<Box
-							sx={{ flexGrow: 1, gap: 1, display: { xs: "none", md: "flex" } }}
+							sx={{
+								flexGrow: 1,
+								gap: 1,
+								display: { xs: "none", md: "flex" },
+							}}
 						>
 							{pages.map((page) => (
 								<NavLink
-									to={"/" + page.toLowerCase()}
-									key={page}
-									style={{ textDecoration: "none" }}
+									to={"/" + page.name.toLowerCase()}
+									key={page.name}
+									style={{ textDecoration: "none", color: "inherit" }}
 								>
 									{({ isActive }) => (
 										<Button
 											onClick={handleCloseNavMenu}
 											color="inherit"
-											sx={
-												{ my: 2, color: "white", display: "block" }
-												// ,
-												// isActive &&
-												// 	{
-												// 		// "&:hover": { bgcolor: "secondary.main" },
-												// 		// bgcolor: "secondary.main",
-												// 		// color: "white",
-												// 		// fontWeight: "bold",
-												// 	}
-											}
+											// color={isActive ? "disabled" : "inherit"}
+											size="small"
+											// disabled={!isActive}
+											startIcon={page.icon}
+											sx={[
+												{ my: 2 },
+												isActive && {
+													px: 0.65,
+												},
+												!isActive && {
+													color: "grey",
+													// fontWeight: "bold",
+													// px: "4px",
+												},
+											]}
 											variant={isActive ? "contained" : "text"}
 											// variant="contained"
 										>
-											{page}
+											{page.name}
 										</Button>
 									)}
 								</NavLink>
@@ -150,12 +183,13 @@ function Navbar() {
 							>
 								{pages.map((page) => (
 									<MenuItem
-										key={page}
+										key={page.name}
 										onClick={handleCloseNavMenu}
 										component={NavLink}
-										to={"/" + page.toLowerCase()}
+										to={"/" + page.name.toLowerCase()}
 									>
-										<Typography textAlign="center">{page}</Typography>
+										<Box sx={{ mr: 1 }}>{page.icon}</Box>
+										<Typography textAlign="center">{page.name}</Typography>
 									</MenuItem>
 								))}
 							</Menu>
@@ -165,23 +199,33 @@ function Navbar() {
             Logo en breakpoint xs 
             ----------------------
             */}
-						<Logo sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}></Logo>
-						<Typography
-							variant="h5"
-							noWrap
-							// component={NavLink}
-							// to="/"
+						<Box
+							component={NavLink}
+							to="/"
 							sx={{
-								mr: 2,
 								display: { xs: "flex", md: "none" },
-								flexGrow: 1,
-								fontWeight: 700,
-								color: "inherit",
 								textDecoration: "none",
+								color: "inherit",
+								alignItems: "center",
+								flexGrow: 1,
 							}}
 						>
-							Blocks
-						</Typography>
+							<Logo sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}></Logo>
+							<Typography
+								variant="h5"
+								noWrap
+								// component={NavLink}
+								// to="/"
+								sx={{
+									mr: 2,
+									fontWeight: 700,
+									color: "inherit",
+									textDecoration: "none",
+								}}
+							>
+								Blocks
+							</Typography>
+						</Box>
 
 						{/* 
             --------
@@ -192,7 +236,7 @@ function Navbar() {
 						<Box sx={{ flexGrow: 0 }}>
 							<Tooltip title="Open settings">
 								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-									<Avatar alt="" src="" />
+									<Avatar alt="Profile" src="" />
 								</IconButton>
 							</Tooltip>
 							<Menu
@@ -212,9 +256,18 @@ function Navbar() {
 								onClose={handleCloseUserMenu}
 							>
 								{settings.map((setting) => (
-									<MenuItem key={setting} onClick={handleCloseUserMenu}>
-										<Typography textAlign="center">{setting}</Typography>
-									</MenuItem>
+									<NavLink
+										key={setting}
+										to={`/${setting.toLowerCase()}`}
+										style={{
+											textDecoration: "none",
+											color: "inherit",
+										}}
+									>
+										<MenuItem onClick={handleCloseUserMenu}>
+											<Typography textAlign="center">{setting}</Typography>
+										</MenuItem>
+									</NavLink>
 								))}
 							</Menu>
 						</Box>
