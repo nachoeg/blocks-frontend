@@ -108,10 +108,10 @@ function TasksPage() {
 		<Box
 			sx={{
 				p: 3,
+				pt: 1,
 				display: "flex",
 				gap: 1,
-				// overflow: "scroll",
-				maxHeight: "10px",
+				overflow: "auto",
 				// justifyContent: "center",
 			}}
 		>

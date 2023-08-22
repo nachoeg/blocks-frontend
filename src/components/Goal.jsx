@@ -6,6 +6,7 @@ import {
 	CardContent,
 	Checkbox,
 	LinearProgress,
+	Tooltip,
 	Typography,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
@@ -44,39 +45,46 @@ function Goal({ data }) {
 			</CardContent>
 			<Box sx={{ flexGrow: 1 }}></Box>
 			{data.objective > 0 ? (
-				<>
-					<Badge
-						color={
-							data.progress == 100
-								? "success"
-								: data.progress >= 50
-								? "primary"
-								: data.progress >= 25
-								? "warning"
-								: "error"
-						}
-						badgeContent={data.value + "/" + data.objective}
-						anchorOrigin={{
-							vertical: "bottom",
-							horizontal: "right",
+				<Tooltip title="Progress" placement="bottom-end">
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
 						}}
-						sx={{ mb: 2, mr: 3 }}
-					></Badge>
-					<LinearProgress
-						variant="determinate"
-						sx={{}}
-						color={
-							data.progress == 100
-								? "success"
-								: data.progress >= 50
-								? "primary"
-								: data.progress >= 25
-								? "warning"
-								: "error"
-						}
-						value={data.progress}
-					/>
-				</>
+					>
+						<Badge
+							color={
+								data.progress == 100
+									? "success"
+									: data.progress >= 50
+									? "primary"
+									: data.progress >= 25
+									? "warning"
+									: "error"
+							}
+							badgeContent={data.value + "/" + data.objective}
+							anchorOrigin={{
+								vertical: "bottom",
+								horizontal: "right",
+							}}
+							sx={{ mb: 2, mr: 3 }}
+						/>
+						<LinearProgress
+							variant="determinate"
+							sx={{}}
+							color={
+								data.progress == 100
+									? "success"
+									: data.progress >= 50
+									? "primary"
+									: data.progress >= 25
+									? "warning"
+									: "error"
+							}
+							value={data.progress}
+						/>
+					</Box>
+				</Tooltip>
 			) : (
 				<Checkbox
 					sx={{ width: "max-content", alignSelf: "end" }}

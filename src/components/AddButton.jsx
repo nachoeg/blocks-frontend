@@ -4,7 +4,10 @@ import { Button } from "@mui/material";
 function AddButton({ colorBoton }) {
 	return (
 		<Button
-			sx={{ width: 250 }}
+			sx={{
+				flexGrow: { xs: 1, md: 0 },
+				width: 250,
+			}}
 			// color="inherit"
 			color={colorBoton}
 			startIcon={<Add />}

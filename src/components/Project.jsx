@@ -4,6 +4,7 @@ import {
 	Box,
 	CardContent,
 	LinearProgress,
+	Tooltip,
 	Typography,
 } from "@mui/material";
 import Block from "./Block";
@@ -33,39 +34,46 @@ function Project({ data }) {
 				</Box>
 			</CardContent>
 			{data.tasks > 0 ? (
-				<>
-					<Badge
-						color={
-							data.progress == 100
-								? "success"
-								: data.progress >= 50
-								? "primary"
-								: data.progress >= 25
-								? "warning"
-								: "error"
-						}
-						badgeContent={data.tasksLeft}
-						anchorOrigin={{
-							vertical: "bottom",
-							horizontal: "right",
+				<Tooltip title="Task left" placement="bottom-end">
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
 						}}
-						sx={{ mb: 2, mr: 2 }}
-					></Badge>
-					<LinearProgress
-						variant="determinate"
-						sx={{}}
-						color={
-							data.progress == 100
-								? "success"
-								: data.progress >= 50
-								? "primary"
-								: data.progress >= 25
-								? "warning"
-								: "error"
-						}
-						value={data.progress}
-					/>
-				</>
+					>
+						<Badge
+							color={
+								data.progress == 100
+									? "success"
+									: data.progress >= 50
+									? "primary"
+									: data.progress >= 25
+									? "warning"
+									: "error"
+							}
+							badgeContent={data.tasksLeft}
+							anchorOrigin={{
+								vertical: "bottom",
+								horizontal: "right",
+							}}
+							sx={{ mb: 2, mr: 2 }}
+						></Badge>
+						<LinearProgress
+							variant="determinate"
+							sx={{}}
+							color={
+								data.progress == 100
+									? "success"
+									: data.progress >= 50
+									? "primary"
+									: data.progress >= 25
+									? "warning"
+									: "error"
+							}
+							value={data.progress}
+						/>
+					</Box>
+				</Tooltip>
 			) : (
 				<Alert
 					variant="outlined"

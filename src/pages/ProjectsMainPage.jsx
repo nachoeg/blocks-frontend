@@ -71,6 +71,7 @@ function ProjectPage() {
 		<Box
 			sx={{
 				p: 3,
+				pt: 1,
 				display: "flex",
 				gap: 1,
 				overflow: "auto",

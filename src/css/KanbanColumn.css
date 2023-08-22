@@ -5,3 +5,9 @@
 .kanbanColumn:hover .newButton {
 	opacity: inherit;
 }
+
+@media (hover: none) {
+	.newButton {
+		opacity: inherit;
+	}
+}

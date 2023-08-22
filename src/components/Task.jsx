@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Block from "./Block";
+import { Calendar } from "mdi-material-ui";
 
 function Task({ data }) {
 	const handleOpen = () => {
@@ -42,9 +43,11 @@ function Task({ data }) {
 				>
 					{data.project}
 				</Button>
-				<Typography variant="subtitle2" sx={{}}>
-					{data.date}
-				</Typography>
+				{data.date && (
+					<Button startIcon={<Calendar />} size="small" color="inherit" sx={{}}>
+						{data.date}
+					</Button>
+				)}
 				{data.subtasks.map((st) => {
 					return (
 						<div key={st.id}>
